@@ -1,19 +1,35 @@
 let player;
-const playlistId = 'PLo5gSzCiINpTVIXHTLh829G6nlMJS7q6m';
+let currentPlaylistId = 'PLo5gSzCiINpTVIXHTLh829G6nlMJS7q6m';
 const TARGET_SPEED = 1.5;
 
+// Define your playlists here
+const PLAYLISTS = [
+    { id: 'PLo5gSzCiINpTVIXHTLh829G6nlMJS7q6m', name: 'Main List' },
+    // { id: 'OTHER_ID', name: 'Other List' }
+];
+
 function onYouTubeIframeAPIReady() {
-    console.log("YouTube API Ready");
+    initPlayer(currentPlaylistId);
+    setupPlaylistUI();
+}
+
+function initPlayer(id) {
+    if (player) {
+        player.destroy();
+    }
+    
     player = new YT.Player('player', {
         height: '100%',
         width: '100%',
         playerVars: {
             listType: 'playlist',
-            list: playlistId,
+            list: id,
+            playlist: id, // Required for loop to work with a playlist
+            loop: 1,
             playsinline: 1,
             modestbranding: 1,
             rel: 0,
-            origin: 'https://syume2900-netizen.github.io'
+            origin: window.location.origin
         },
         events: {
             'onReady': onPlayerReady,
@@ -23,33 +39,62 @@ function onYouTubeIframeAPIReady() {
     });
 }
 
+function setupPlaylistUI() {
+    const listContainer = document.getElementById('playlist-buttons');
+    if (!listContainer) return;
+    
+    listContainer.innerHTML = '';
+    PLAYLISTS.forEach(pl => {
+        const btn = document.createElement('button');
+        btn.className = `playlist-btn ${pl.id === currentPlaylistId ? 'active' : ''}`;
+        btn.textContent = pl.name;
+        btn.title = pl.name;
+        btn.onclick = () => switchPlaylist(pl.id);
+        listContainer.appendChild(btn);
+    });
+}
+
+function switchPlaylist(id) {
+    if (id === currentPlaylistId) return;
+    currentPlaylistId = id;
+    initPlayer(id);
+    setupPlaylistUI();
+    
+    // Reset start button
+    const playBtn = document.getElementById('play-btn');
+    playBtn.style.display = 'flex';
+    playBtn.querySelector('.btn-text').textContent = 'PLAYLIST START';
+}
+
 function onPlayerReady(event) {
     console.log("Player Ready");
     const playBtn = document.getElementById('play-btn');
     const statusText = document.getElementById('status-text');
 
-    playBtn.addEventListener('click', () => {
+    // Remove old listeners to avoid stacking
+    const newPlayBtn = playBtn.cloneNode(true);
+    playBtn.parentNode.replaceChild(newPlayBtn, playBtn);
+
+    newPlayBtn.addEventListener('click', () => {
         player.playVideo();
-        playBtn.style.display = 'none'; // Only show at the start or if paused
+        newPlayBtn.style.display = 'none';
         statusText.textContent = `Speed: ${TARGET_SPEED}x locked`;
     });
 
-    // Initial speed setting
     player.setPlaybackRate(TARGET_SPEED);
 
-    // Monitoring Loop: Periodically ensure speed is 1.5x
-    setInterval(() => {
+    // Monitoring Loop
+    if (window.monitorInterval) clearInterval(window.monitorInterval);
+    window.monitorInterval = setInterval(() => {
         if (player && typeof player.getPlaybackRate === 'function') {
             const currentRate = player.getPlaybackRate();
             const state = player.getPlayerState();
             
-            // If playing and speed is wrong, force it back
             if (state === YT.PlayerState.PLAYING && currentRate !== TARGET_SPEED) {
-                console.log(`Speed correction: ${currentRate} -> ${TARGET_SPEED}`);
                 player.setPlaybackRate(TARGET_SPEED);
             }
         }
-    }, 1000); // Check every second
+    }, 1000);
 }
 
 function onPlayerStateChange(event) {
@@ -70,12 +115,14 @@ function onPlayerStateChange(event) {
             playBtn.querySelector('.btn-text').textContent = 'RESUME';
             break;
         case YT.PlayerState.ENDED:
-            statusText.textContent = "Finished";
+            // Looping fallback
+            player.playVideoAt(0);
+            statusText.textContent = "Looping...";
             break;
     }
 }
 
 function onPlayerError(event) {
     console.error("YouTube Player Error:", event.data);
-    document.getElementById('status-text').textContent = "Connection Error";
+    document.getElementById('status-text').textContent = "Error: Use Main App";
 }
