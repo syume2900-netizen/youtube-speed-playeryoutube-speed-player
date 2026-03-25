@@ -1,19 +1,60 @@
 <!DOCTYPE html>
 <html lang="ja">
-  <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Speed-X Playlist</title>
-      <link rel="stylesheet" href="styles.css">
-  </head>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Speed-X Playlist | 1.5x Premium Speed Player</title>
+    <meta name="description" content="1.5倍速・監視ループ機能付きのYouTube再生リストプレイヤー。">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
 <body>
-      <div id="player"></div>div>
-      <button id="play-btn">START PLAYLIST</button>button>
-      <div id="status-text">Status: Ready</div>div>
-      <script src="https://www.youtube.com/iframe_api"></script>
-      <script src="main.js"></script>
-</body>
-</html>html>
+    <div class="background-glow"></div>
+    <main class="container">
+        <header class="header">
+            <h1 class="glow-text">Speed-X Playlist</h1>
+            <p class="subtitle">1.5x Playback Locked | Auto-Monitor Active</p>
+        </header>
 
-</body></title>
-  </head>
+        <section class="player-section">
+            <div class="glass-card">
+                <div class="aspect-ratio-box">
+                    <div id="player"></div>
+                </div>
+                
+                <div class="controls-overlay">
+                    <button id="play-btn" class="premium-button">
+                        <div class="btn-ripple"></div>
+                        <span class="btn-text">PLAYLIST START</span>
+                        <svg viewBox="0 0 24 24" class="btn-icon"><path fill="currentColor" d="M8,5.14V19.14L19,12.14L8,5.14Z" /></svg>
+                    </button>
+                    
+                    <div id="status-display" class="status-box">
+                        <span class="pulse-dot"></span>
+                        <span id="status-text">Ready to boost</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <aside class="info-section">
+            <div class="badge">Playlist: PLo5gSzCiINpTVIXHTLh829G6nlMJS7q6m</div>
+            <div class="feature-tags">
+                <span>⚡ 1.5x Speed Fixed</span>
+                <span>🔄 Auto-Recover</span>
+                <span>📱 Mobile Optimized</span>
+            </div>
+        </aside>
+
+        <footer class="footer">
+            <p>&copy; 2026 Speed-X Media. Designed by Antigravity.</p>
+        </footer>
+    </main>
+
+    <script src="https://www.youtube.com/iframe_api"></script>
+    <script src="main.js"></script>
+</body>
+</html>
