@@ -4,8 +4,9 @@ const TARGET_SPEED = 1.5;
 
 // Define your playlists here
 const PLAYLISTS = [
-    { id: 'PLo5gSzCiINpTVIXHTLh829G6nlMJS7q6m', name: 'Main List' },
-    // { id: 'OTHER_ID', name: 'Other List' }
+    { id: 'PLo5gSzCiINpTVIXHTLh829G6nlMJS7q6m', name: '1.5倍' },
+    { id: 'PLo5gSzCiINpT9eXnEZcIiJlTUnrfmyoTu', name: 'やまと' },
+    { id: 'PLo5gSzCiINpR8nZQjv31gwot-4g0bT19s', name: '適当' }
 ];
 
 function onYouTubeIframeAPIReady() {
