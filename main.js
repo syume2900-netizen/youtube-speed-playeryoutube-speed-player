@@ -12,7 +12,8 @@ function onYouTubeIframeAPIReady() {
             list: playlistId,
             playsinline: 1,
             modestbranding: 1,
-            rel: 0
+            rel: 0,
+            origin: 'https://syume2900-netizen.github.io'
         },
         events: {
             'onReady': onPlayerReady,
