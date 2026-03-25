@@ -224,3 +224,103 @@ body {
   .container { padding: 1rem; }
   .premium-button { height: 50px; font-size: 1rem; }
 }
+
+/* --- Playlist Switcher --- */
+.playlist-switcher {
+    margin-top: 1.5rem;
+    width: 100%;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+.switcher-title {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+.switcher-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 0.8rem;
+    padding: 0 0.5rem;
+}
+.playlist-btn {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #fff;
+    padding: 0.7rem 0.5rem;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.playlist-btn:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(124, 58, 237, 0.5);
+    transform: translateY(-2px);
+}
+.playlist-btn.active {
+    background: linear-gradient(135deg, rgba(124, 58, 237, 0.5), rgba(99, 102, 241, 0.5));
+    border-color: #4deeea;
+    box-shadow: 0 0 10px rgba(77, 238, 234, 0.3);
+}
+
+/* --- Mobile Landscape Support --- */
+@media screen and (orientation: landscape) and (max-height: 500px) {
+    .container {
+        padding: 0.5rem;
+        display: grid;
+        grid-template-columns: 1.8fr 1.2fr;
+        gap: 1rem;
+        align-items: start;
+        max-width: 100%;
+    }
+    .header, .footer, .info-section { 
+        display: none !important; /* Hide non-essentials in horizontal mode to save space */
+    }
+    .player-section { 
+        grid-column: 1;
+        margin: 0;
+        width: 100%;
+    }
+    #playlist-switcher {
+        grid-column: 2;
+        margin: 0;
+        max-height: 90vh;
+        overflow-y: auto;
+        padding-right: 5px;
+    }
+    .glass-card { 
+        margin-bottom: 0.5rem; 
+    }
+    .aspect-ratio-box {
+        margin-bottom: 0px;
+    }
+    .controls-overlay {
+        position: static;
+        padding-top: 0.5rem;
+        background: none;
+        flex-direction: row;
+        gap: 10px;
+    }
+    .start-main {
+        flex: 1;
+        height: 40px !important;
+    }
+    .status-box {
+        flex: 1;
+        height: 40px;
+    }
+    .switcher-grid {
+        grid-template-columns: 1fr;
+    }
+}
