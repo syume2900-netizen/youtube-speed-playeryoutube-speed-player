@@ -1,17 +1,1 @@
-<!DOCTYPE html>
-  <html>
-  <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>1.5x YouTube Player</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <div id="player"></div>
-      <div style="margin-top: 20px;">
-          <button id="playBtn" style="padding: 10px 20px; font-size: 18px;">Start Playback (1.5x)</button>
-      </div>
-      <script src="https://www.youtube.com/iframe_api"></script>
-      <script src="main.js"></script>
-  </body>
-  </html>
+<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>1.5x Youtube Player</title><style>body{font-family:sans-serif;display:flex;flex-direction:column;align-items:center;justify-content:center;height:100vh;margin:0;background-color:#f0f0f0}#player{max-width:100%}button{padding:10px 20px;font-size:18px;cursor:pointer}</style></head><body><div id="player"></div>div><div style="margin-top:20px"><button id="playBtn">Start Playback (1.5x)</button>button></div>div><script src="https://www.youtube.com/iframe_api"></script><script>var p;function onYouTubeIframeAPIReady(){p=new YT.Player('player',{height:'360',width:'640',playerVars:{'listType':'playlist','list':'PLo5gSzCiINpTVIXHTLh829G6nlMJS7q6m','playsinline':1},events:{'onReady':function(){document.getElementById('playBtn').onclick=function(){p.playVideo();p.setPlaybackRate(1.5)};setInterval(function(){if(p&&p.getPlaybackRate&&p.getPlaybackRate()!==1.5)p.setPlaybackRate(1.5)},1000)}}})}</script></body></html></script></body></style></title></head></html>
